@@ -14,15 +14,15 @@ import nltk
 def get_stopwords():
     nltk.download('stopwords')
 
-st.set_page_config(page_title="Chat with a friend on the works of Rabindranath Tagore", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
-st.title("Chat with a friend on the works of Rabindranath Tagore")
+st.set_page_config(page_title="Chat with an expert on the Critique of Pure Reason", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
+st.title("Chat with an expert on the Critique of Pure Reason")
 
 
 if "messages" not in st.session_state.keys():  # Initialize the chat messages history
     st.session_state.messages = [
         {
             "role": "assistant",
-            "content": "Ask me a question about Rabindranath Tagore!!",
+            "content": "Ask me a question about the Critique of Pure Reason!!",
         }
     ]
 
@@ -31,8 +31,8 @@ def load_data():
     reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
     docs = reader.load_data()
 
-    Settings.chunk_size = 1500
-    Settings.chunk_overlap = 50
+    Settings.chunk_size = 2000
+    Settings.chunk_overlap = 75
     Settings.embed_model = GoogleGenAIEmbedding(
     model_name="text-embedding-004",
     embed_batch_size=100,
@@ -42,7 +42,7 @@ def load_data():
     
     Settings.llm = Gemini(
         model="models/gemini-2.5-flash",
-        temperature=1.0,
+        temperature=0.5,
         system_prompt="""You are an expert on Kant's Critique of Pure Reason. Using the provided documents, respond with answers about the Critique. Explain concepts in language that a college undergraduate would understand.
         Whenever possible, include a quote from the provided text.
         Keep your answers under 200 words.""",
